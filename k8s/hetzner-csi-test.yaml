@@ -1,0 +1,47 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: my-csi-app
+spec:
+  selector:
+    matchLabels:
+      app: my-csi-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: my-csi-app
+    spec:
+      containers:
+        - name: my-frontend
+          image: busybox
+          volumeMounts:
+          - mountPath: "/data"
+            name: my-hc-volume
+          command: [ "sleep", "1000000" ]
+      volumes:
+        - name: my-hc-volume
+          persistentVolumeClaim:
+            claimName: csi-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: csi-pvc
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: hcloud-default
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: hcloud-default
+provisioner: csi.hetzner.cloud
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+reclaimPolicy: Retain
+
