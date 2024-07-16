@@ -107,6 +107,7 @@ spec:
     app.kubernetes.io/instance: "coredns"
     k8s-app: coredns
     app.kubernetes.io/name: coredns
+  clusterIP: 10.96.0.10
   ports:
   - {"name":"udp-53","port":53,"protocol":"UDP"}
   - {"name":"tcp-53","port":53,"protocol":"TCP"}
