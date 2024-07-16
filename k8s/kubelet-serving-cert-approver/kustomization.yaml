@@ -4,4 +4,4 @@ namespace: kubelet-serving-cert-approver
 resources:
 - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.8.5/deploy/standalone-install.yaml
 patches:
-- patch.yaml
+- path: patch.yaml
