@@ -1,4 +1,4 @@
 ```
-helm template argo argo/argo-cd --namespace argocd --set fullnameOverride=argocd > argo.yaml
+helm template argocd argo/argo-cd --namespace argocd > argo.yaml
 kustomize build . > install.yaml
 ```
